@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 
-const Header = (props) => {
+// Header da página renderiza os botões
+// que são encapsulados pelo componente Link pra fazer
+// a transição entre as views
+const Header = () => {
   
   return (
     <div className="mb-3 row">

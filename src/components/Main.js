@@ -1,11 +1,12 @@
 import { Switch, Route } from 'react-router-dom';
-import Brazil from './Brazil';
-import DateSpecified from './DateSpecified';
-import OtherCountry from './OtherCountry';
-import Form from './Form';
+import Brazil from '../views/Brazil';
+import DateSpecified from '../views/DateSpecified';
+import OtherCountry from '../views/OtherCountry';
+import Form from '../views/Form';
 
-const Main = (props) => {
-  
+// Componente que define onde apareceram os
+// components de acordo com o hash
+const Main = () => {
   return (
     <main>
       <Switch>

@@ -1,9 +1,12 @@
-const State = (props) => {
+import PropTypes from 'prop-types';
 
-  const { state } = props;
-  
+// Componente de visualização de um estado
+const State = ({ state }) => {
   return (
-    <div className="card text-center mx-auto" style={{ width: '18rem' }}>
+    <div
+      className="card text-center mx-auto"
+      style={{ width: '18rem' }}
+    >
       <div className="card-header">
         <h5>{ state.state.toUpperCase() }</h5>
       </div>
@@ -33,6 +36,10 @@ const State = (props) => {
     </div>
   );
   
+};
+
+State.propTypes = {
+  state: PropTypes.object.isRequired
 };
 
 export default State;

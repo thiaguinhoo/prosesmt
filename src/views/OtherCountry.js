@@ -1,24 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import Error from './Error';
 
-const OtherCountry = (props) => {
-  
+import Error from '../components/Error';
+
+import { validateForm } from '../utils/forms';
+
+const OtherCountry = () => {
+  // Ref que aponta para o input de texto
+  // que armazena o valor do estado
   const inputRef = useRef(null);
+  // Armazena o país em si
   const [ country, setCountry ] = useState(null);
+  // Caso ocorra em erro seta essa variavel
   const [ error, setError ] = useState(false);
   
   async function handleClick (event) {
- 
+    // Se o formulário não for válido retorno sem fazer nada
+    if (!validateForm([inputRef.current])) {
+      return;
+    }
+    // Pego o campo value do input
     const { value } = inputRef.current;
+    // Retorna caso não esteja prenchido o dado
     if (!value) return;
     const url = `https://covid19-brazil-api.now.sh/api/report/v1/${value.toLowerCase()}`;
     const response = await axios.get(url);
     const json = response.data;
     
+    // Verifica se o objeto está vazio
     function isEmpty(obj) {
       return Object.keys(obj).length === 0;
-    }   
+    }
+
+    // Se estiver vazio seto o erro
+    // Caso contrário seto o país
     if (isEmpty(json.data)) {
       setError(true);
     } else {
@@ -27,6 +42,7 @@ const OtherCountry = (props) => {
     }
   }
   
+  // Dou foco ao componente na sua montagem
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -42,7 +58,12 @@ const OtherCountry = (props) => {
         />
       </div>
       <div className=" mt-3">
-        <button className="btn btn-success w-100" onClick={ handleClick }>Search</button>
+        <button
+          className="btn btn-success w-100"
+          onClick={ handleClick }
+        >
+          Search
+        </button>
       </div>
       { !error && country && (
         <div className="card text-center mx-auto mt-3" style={{ width: '18rem' }}>
